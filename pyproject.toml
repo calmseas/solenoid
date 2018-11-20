@@ -4,6 +4,9 @@ module = "solenoid"
 version = "0.1.0"
 description = "Implementation of Spring Boot Actuator and Spring Cloud Discovery, Security and Tracing"
 authors = ["Grant McDonald <grantmmcdonald@gmail.com>"]
+license = "Apache-2.0"
+homepage = "https://github.com/calmseas/solenoid"
+readme = "README.md"
 
 
 [tool.poetry.dependencies]
