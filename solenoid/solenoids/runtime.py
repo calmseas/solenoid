@@ -1,5 +1,5 @@
 import platform, sys, socket
-from ..config import EurekaConfig
+from solenoid.config import ServiceConfig
 
 #TODO needs to be depth first traversal to capture a.b.c config props
 def _config(key, value):
@@ -10,7 +10,7 @@ def _config(key, value):
         }
     }
 
-def get_runtime(config: EurekaConfig):
+def get_runtime(config: ServiceConfig):
     env = {
         'activeProfiles': [],
         'propertySources': [

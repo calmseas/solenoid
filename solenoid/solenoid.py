@@ -1,8 +1,9 @@
-from flask import Flask, jsonify, Response, request, make_response
+from flask import Flask, Response, make_response
 from flask.json import dumps, request
-from .actuators import log, runtime, health, info
-from .config import EurekaConfig
+from .solenoids import log, health, runtime
+from .config import ServiceConfig
 import logging
+from collections import deque
 
 CONTENT_TYPE = 'application/vnd.spring-boot.actuator.v2+json;charset=UTF-8'
 
@@ -18,11 +19,12 @@ def shutdown_server():
     func()
 
 
-class Actuator:
+class Solenoid:
 
-    def __init__(self, config: EurekaConfig, app: Flask):
+    def __init__(self, config: ServiceConfig, app: Flask, httptraces: deque):
         self.app = app
         self.config = config
+        self.traces = httptraces
         self.log = logging.getLogger(__name__)
 
         @app.route('/actuator')
@@ -93,3 +95,10 @@ class Actuator:
         def shutdown():
             shutdown_server()
             return Response(dumps({'message' : 'Shutting down, bye...'}), mimetype=CONTENT_TYPE)
+
+        @app.route('/actuator/httptrace')
+        def httptrace():
+            traces = { 'traces': [t.render() for t in self.traces] }
+            return Response(dumps(traces), mimetype=CONTENT_TYPE)
+
+

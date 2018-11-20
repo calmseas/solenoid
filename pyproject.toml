@@ -1,12 +1,10 @@
 [tool.poetry]
-name = "eureka-client"
-module = "eureka.client"
+name = "solenoid"
+module = "solenoid"
 version = "0.1.0"
-description = "Implementation of Eureka service discovery client for Python"
+description = "Implementation of Spring Boot Actuator and Spring Cloud Discovery, Security and Tracing"
 authors = ["Grant McDonald <grantmmcdonald@gmail.com>"]
-packages = [
-    { include = "eureka" },
-]
+
 
 [tool.poetry.dependencies]
 python = "^3.7"

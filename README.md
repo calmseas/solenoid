@@ -26,7 +26,7 @@ eureka:
   host: localhost
   port: 9091
   ssl: false
-  servicePath: /eureka/apps/
+  servicePath: solenoid
   
 options:
   requestImpl: requests

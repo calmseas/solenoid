@@ -5,13 +5,8 @@ import os
 import os.path
 import yaml
 
-from eureka.client.config import EurekaConfig
-from eureka.client.flask import EurekaFlaskApp
-from flask import Flask, jsonify
-from flask_cors import CORS
-
-
-import eureka.client.api as api
+from solenoid.app import SolenoidFlaskApp
+from flask import jsonify
 
 
 def setup_logging(
@@ -39,16 +34,20 @@ class MyTestCase(unittest.TestCase):
     def test_flask(self):
         setup_logging('logging.yaml')
         log = logging.getLogger(__name__)
-        app = Flask(__name__)
-        CORS(app)
-        config = EurekaConfig()
-        config.load_config('service.yaml')
-        efapp = EurekaFlaskApp(config, app)
+        solenoid = SolenoidFlaskApp('service.yaml')
 
-        @efapp.app.route('/', methods=['GET'])
+        @solenoid.route('/', methods=['GET'])
         def home():
             resp = jsonify({'test':'client'})
             resp.status_code = 200
             return resp
 
-        efapp.app.run('0.0.0.0', config.get_port())
+        @solenoid.trace('/booking', methods=['GET'])
+        def booking():
+            resp = jsonify({'bookings': [1,2,3,4,5]})
+            resp.status_code = 200
+            return resp
+
+        solenoid.register_service()
+        solenoid.start_heartbeat()
+        solenoid.run()

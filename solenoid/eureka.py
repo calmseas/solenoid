@@ -1,4 +1,4 @@
-from eureka.client.config import EurekaConfig
+from solenoid.config import ServiceConfig
 import requests
 from requests.exceptions import RequestException
 from requests.adapters import HTTPAdapter
@@ -30,8 +30,8 @@ def requests_retry_session(
     return session
 
 
-class EurekaClientRequests:
-    def __init__(self, config: EurekaConfig):
+class EurekaClient:
+    def __init__(self, config: ServiceConfig):
         self.config = config
         self.session = requests_retry_session(config.clientOptions)
         self.log = logging.getLogger(__name__)

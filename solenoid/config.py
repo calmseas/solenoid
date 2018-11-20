@@ -108,7 +108,7 @@ class ClientOptions:
         self.registerWithEureka = registerWithEureka
 
 
-class EurekaConfig:
+class ServiceConfig:
 
     def __init__(self, serviceMetadata: ServiceMetadata = None,
                  discoveryServer: DiscoveryServer = None,

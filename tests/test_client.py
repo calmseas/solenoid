@@ -5,8 +5,8 @@ import os
 import os.path
 import yaml
 
-from eureka.client.config import EurekaConfig, ServiceMetadata, DiscoveryServer, Port, myOwnDC
-import eureka.client.api as api
+from solenoid.config import ServiceConfig, ServiceMetadata, DiscoveryServer, Port, myOwnDC
+import solenoid as api
 
 
 def setup_logging(
@@ -79,28 +79,28 @@ server = DiscoveryServer(
     hostName='localhost',
     port=9091,
     ssl=False,
-    servicePath='/eureka/apps/'
+    servicePath='/solenoid/apps/'
 )
 
-class_config = EurekaConfig(service, server)
+class_config = ServiceConfig(service, server)
 
 class MyTestCase(unittest.TestCase):
     def test_config(self):
         log = logging.getLogger(__name__)
-        config = EurekaConfig()
+        config = ServiceConfig()
         config.load_config('service.yaml')
         log.debug(config.get_service_metadata())
 
     def test_register(self):
         log = logging.getLogger(__name__)
-        config = EurekaConfig()
+        config = ServiceConfig()
         config.load_config('service.yaml')
         api.register(config)
 
     def test_eureka(self):
         import requests
         log = logging.getLogger(__name__)
-        res = requests.post('http://localhost:9091/eureka/apps/plugin-test-aaa-service', json=conf)
+        res = requests.post('http://localhost:9091/solenoid/apps/plugin-test-aaa-service', json=conf)
         log.debug(res)
 
     def test_class_config(self):
