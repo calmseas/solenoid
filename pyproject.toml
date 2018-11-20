@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "eureka-client"
+module = "eureka.client"
+version = "0.1.0"
+description = "Implementation of Eureka service discovery client for Python"
+authors = ["Grant McDonald <grantmmcdonald@gmail.com>"]
+packages = [
+    { include = "eureka" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+PyYAML = "^3.13"
+requests = "^2.20"
+flask = "^1.0"
+flask-cors = "^3.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
