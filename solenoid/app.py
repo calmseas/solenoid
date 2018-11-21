@@ -7,6 +7,8 @@ import time
 import datetime
 from collections import deque
 import logging
+import signal
+import sys
 
 
 class Trace:
@@ -73,7 +75,7 @@ class SolenoidFlaskApp:
         self.client = EurekaClient(self.config)
         self.solenoid = Solenoid(self.config, self.app, self.traces)
         self.heartbeat = None
-
+        
     def register_service(self):
         self.client.register()
 
@@ -87,6 +89,7 @@ class SolenoidFlaskApp:
                     self.finished.wait(self.interval)
 
         self.heartbeat = Heartbeat(30.0, self.client.heartbeat)
+        self.heartbeat.setDaemon(True)
         self.heartbeat.start()  # every 30 seconds, call heartbeat
 
     def run(self):
