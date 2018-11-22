@@ -75,7 +75,7 @@ class SolenoidFlaskApp:
         self.client = EurekaClient(self.config)
         self.solenoid = Solenoid(self.config, self.app, self.traces)
         self.heartbeat = None
-        
+
     def register_service(self):
         self.client.register()
 

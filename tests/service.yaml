@@ -24,6 +24,6 @@ instance:
 
 eureka:
   host: localhost
-  port: 9091
+  port: 8080
   ssl: false
   servicePath: /eureka/apps
