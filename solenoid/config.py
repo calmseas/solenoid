@@ -1,7 +1,7 @@
 import json, os.path, yaml
 import logging
 from typing import Dict
-
+import pkg_resources
 
 def _url_or_path(url):
     if url is None:
@@ -119,6 +119,18 @@ class ServiceConfig:
         self.clientOptions = options
         self.fileConfig = None
         self.configfile = None
+
+    def load_packaged_config(self, package, config_file):
+        try:
+            f = pkg_resources.resource_stream(package, config_file)
+            self.fileConfig = yaml.safe_load(f.read())
+        except yaml.YAMLError as exc:
+            self.log.exception(f'Error loading Eureka configuration file: {package}.{config_file} -> {str(exc)}')
+            raise
+        except FileNotFoundError as exc:
+            self.log.exception(f'Error loading Eureka configuration file: {package}.{config_file} -> {str(exc)}')
+            raise
+        self.log.debug(self.fileConfig)
 
     def load_config(self, config_file):
         self.configfile = config_file

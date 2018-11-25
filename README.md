@@ -2,7 +2,7 @@
 
 ```yaml
 instance:
-  instanceId: localhost:testclient:8080
+  instanceId: localhost:testclient:7091
   hostName: localhost
   app: testclient
   ipAddr: 127.0.0.1
@@ -10,23 +10,26 @@ instance:
   secureVipAddress: testclient
   status: UP
   port:
-    $: 8080
-    '@enabled': 'true'
+    $: 7091
+    '@enabled': true
   securePort:
     $: 443
-    '@enabled': 'false'
-  statusPageUrl: http://localhost:8080/info
-  homePageUrl: None
-  healthCheckUrl: None
+    '@enabled': false
+  statusPageUrl: http://localhost:7091/info
+  statusPagePath: /info
+  homePageUrl: http://localhost:7091/
+  homePagePath: /
+  healthCheckUrl: http://localhost:7091/health
+  healthCheckPath: /health
   dataCenterInfo:
     '@class': com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo
     name: MyOwn
 
 eureka:
   host: localhost
-  port: 9091
+  port: 8080
   ssl: false
-  servicePath: solenoid
+  servicePath: /eureka/apps
   
 options:
   requestImpl: requests
