@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "solenoid"
 module = "solenoid"
-version = "0.3.0"
+version = "0.3.1"
 description = "Implementation of Spring Boot Actuator and Spring Cloud Discovery, Security and Tracing"
 authors = ["Grant McDonald <grantmmcdonald@gmail.com>"]
 license = "Apache-2.0"

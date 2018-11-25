@@ -65,11 +65,14 @@ class Trace:
 
 class SolenoidFlaskApp:
 
-    def __init__(self, config_file: str, cors=True):
+    def __init__(self, config_file: str, cors=True, config_package: str=None):
         self.log = logging.getLogger(__name__)
         self.traces = deque(maxlen=100)
         self.config = ServiceConfig()
-        self.config.load_config(config_file)
+        if config_package is not None:
+            self.config.load_packaged_config(config_package, config_file)
+        else:
+            self.config.load_config(config_file)
         self.app = Flask(__name__)
         if cors: CORS(self.app)
         self.client = EurekaClient(self.config)
