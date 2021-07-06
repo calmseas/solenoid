@@ -1,5 +1,9 @@
 # Eureka Client for Python
 
+Supports vanilla Eureka Discovery Servers as well as Spring Boot Admin using Flask to run the micro-service. For Python microservices it is recommended that you use [Pyctuator](https://github.com/SolarEdgeTech/pyctuator).
+
+## Eureka Config
+
 ```yaml
 instance:
   instanceId: localhost:testclient:7091
